@@ -10,4 +10,6 @@ if (WIN32)
 	set(SDL2_SHARED ${SDL2_DLL_LOCATION_TEMP}/${SDL2_SHARED_FILENAME})
 endif(WIN32)
 
+add_subdirectory(vendor/marl)
+
 add_subdirectory ("multi_tracer")
