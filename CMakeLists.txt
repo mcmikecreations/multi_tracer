@@ -12,4 +12,5 @@ endif(WIN32)
 
 add_subdirectory(vendor/marl)
 
-add_subdirectory ("multi_tracer")
+add_subdirectory("multi_tracer")
+add_subdirectory("compile_tracer")
