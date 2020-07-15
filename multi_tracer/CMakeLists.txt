@@ -11,4 +11,6 @@ add_executable (${TARGET_NAME} "multi_tracer.cpp" "multi_tracer.h" "scene.h" "ra
 target_include_directories(${TARGET_NAME} PRIVATE ${SDL2_INCLUDE_DIRS} ../vendor/olc)
 target_link_libraries(${TARGET_NAME} ${SDL2_LIBRARIES} marl)
 target_compile_features(${TARGET_NAME} PRIVATE cxx_std_17)
-configure_file(${SDL2_SHARED} ${CMAKE_BINARY_DIR}/${TARGET_NAME}/${SDL2_SHARED_FILENAME} COPYONLY)
+if (WIN32)
+    configure_file(${SDL2_SHARED} ${CMAKE_BINARY_DIR}/${TARGET_NAME}/${SDL2_SHARED_FILENAME} COPYONLY)
+endif(WIN32)
