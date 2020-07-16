@@ -1,8 +1,8 @@
 #ifndef W
-#define W 2
+#define W 64
 #endif
 #ifndef H
-#define H 2
+#define H 16
 #endif
 #ifndef CC
 #define CC 0xffffffff
@@ -82,12 +82,17 @@ constexpr bmp_infoheader bmp_fill_hinfo()
 }
 constexpr bmp_data bmp_fill_hdata()
 {
-	bmp_data r = {};
-	r.data[0].color = 0xFFFF0000;
-	r.data[1].color = 0xFF00FF00;
-	r.data[2].color = 0xFF0000FF;
-	r.data[3].color = 0xFFFFFFFF;
-	return r;
+	bmp_data res = {};
+	for (size_t j = 0; j < H; ++j)
+		for (size_t i = 0; i < W; ++i)
+		{
+			uint8_t a = 0xFF, r = 0, g = 0, b = 0;
+			if (i < W / 3) r = (uint8_t)( ( ((float)i) / W * 3.0f) * 255);
+			else if (i < 2 * W / 3) g = (uint8_t)( ( ((float)(i - W / 3)) / W * 3.0f) * 255);
+			else b = (uint8_t)( ( ((float)(i - 2 * W / 3)) / W * 3.0f) * 255);
+			res.data[j * W + i].color = (a << 24) + (r << 16) + (g << 8) + b;
+		}
+	return res;
 }
 constexpr bmp bmp_fill()
 {
