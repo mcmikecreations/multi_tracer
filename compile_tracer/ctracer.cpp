@@ -1,8 +1,8 @@
 #ifndef W
-#define W 320
+#define W 640
 #endif
 #ifndef H
-#define H 240
+#define H 480
 #endif
 #ifndef CC
 #define CC 0xffffffff
@@ -327,7 +327,7 @@ struct Sphere {
         float tca = L*dir;
         float d2 = L*L - tca*tca;
         if (d2 > radius*radius) return false;
-        float thc = sqrtf(radius*radius - d2);
+        float thc = details::sqrtf(radius*radius - d2);
         t0       = tca - thc;
         float t1 = tca + thc;
         if (t0 < 0) t0 = t1;
@@ -369,7 +369,7 @@ constexpr Vec3f refract(const Vec3f &I, const Vec3f &N, const float eta_t, const
     if (cosi<0) return refract(I, -N, eta_i, eta_t); // if the ray comes from the inside the object, swap the air and the media
     float eta = eta_i / eta_t;
     float k = 1 - eta*eta*(1 - cosi*cosi);
-    return k<0 ? Vec3f(1,0,0) : I*eta + N*(eta*cosi - sqrtf(k)); // k<0 = total reflection, no ray to refract. I refract it anyways, this has no physical meaning
+    return k<0 ? Vec3f(1,0,0) : I*eta + N*(eta*cosi - details::sqrtf(k)); // k<0 = total reflection, no ray to refract. I refract it anyways, this has no physical meaning
 }
 template <size_t SphereCount> constexpr bool scene_intersect(
 	const Vec3f &orig, const Vec3f &dir, 
